@@ -171,10 +171,6 @@ void sendMidi(int cmd, int pitch, int velocity) {
 }`;
   $("#result").html(inoData.replace(/\r?\n/g, "<br>"));
 }
-//Note, CCの切り替え
-function changeType(btnNo) {
-  $(`#btn${btnNo} .sigtype`).text($(`#btn${btnNo} option:selected`).val() + " :");
-}
 
 function convertValues() {
   for (let i = 0; i < 4; i++) {
@@ -215,16 +211,19 @@ $("#save").on("click", function () {
   saveAs(blob, 'setmidi.ino');
 });
 
-
-
-presetArr = [
-  ["Note", "111", 127],
-  ["Note", "C2", 50],
-  ["Note", "D-1", 0],
-  ["CC", "1", 127]
-];
-for (let i = 0; i < 4; i++) {
-  $(`#btn${i+1} option:selected`).val(presetArr[i][0]);
-  $(`#btn${i+1} .no`).val(presetArr[i][1]);
-  $(`#btn${i+1} .velocity`).val(presetArr[i][2]);
+//Note, CCの切り替え
+function changeType(btnNo) {
+  $(`#btn${btnNo} .sigtype`).text($(`#btn${btnNo} option:selected`).val() + " :");
 }
+
+// presetArr = [
+//   ["Note", "111", 127],
+//   ["Note", "C2", 50],
+//   ["Note", "D-1", 0],
+//   ["CC", "1", 127]
+// ];
+// for (let i = 0; i < 4; i++) {
+//   $(`#btn${i+1} option:selected`).val(presetArr[i][0]);
+//   $(`#btn${i+1} .no`).val(presetArr[i][1]);
+//   $(`#btn${i+1} .velocity`).val(presetArr[i][2]);
+// }
