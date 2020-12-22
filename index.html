@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>arduino midi config tool</title>
+  <meta charset="UTF-8" />
+  <script src="jquery-3.5.1.min.js"></script>
+  <script src="FileSaver.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <table border="1" cellspacing="0">
+      <tr>
+        <td>
+          <div id="btn1">
+            <h2>Button1</h2>
+            <p><label>
+                <span>Sig type :</span>
+                <select class="selecttype" onchange="changeType(1)">
+                  <option value="Note">Note</option>
+                  <option value="CC">CC</option>
+                </select>
+              </label></p>
+            <p><label>
+                <span class="sigtype">Note :</span>
+                <input type="text" class="no" size="5px" value="111" />
+              </label></p>
+            <p><label>
+                <span>Velocity :</span>
+                <input type="number" class="velocity" min="0" max="127" size="5px" value="127" />
+              </label></p>
+          </div>
+        </td>
+        <td>
+          <div id="btn2">
+            <h2>Button2</h2>
+            <p><label>
+                <span>Sig type :</span>
+                <select class="selecttype" onchange="changeType(1)">
+                  <option value="Note">Note</option>
+                  <option value="CC">CC</option>
+                </select>
+              </label></p>
+            <p><label>
+                <span class="sigtype">Note :</span>
+                <input type="text" class="no" size="5px" value="111" />
+              </label></p>
+            <p><label>
+                <span>Velocity :</span>
+                <input type="number" class="velocity" min="0" max="127" size="5px" value="127" />
+              </label></p>
+          </div>
+        </td>
+        <td>
+          <div id="btn3">
+            <h2>Button3</h2>
+            <p><label>
+                <span>Sig type :</span>
+                <select class="selecttype" onchange="changeType(1)">
+                  <option value="Note">Note</option>
+                  <option value="CC">CC</option>
+                </select>
+              </label></p>
+            <p><label>
+                <span class="sigtype">Note :</span>
+                <input type="text" class="no" size="5px" value="111" />
+              </label></p>
+            <p><label>
+                <span>Velocity :</span>
+                <input type="number" class="velocity" min="0" max="127" size="5px" value="127" />
+              </label></p>
+          </div>
+        </td>
+        <td>
+          <div id="btn4">
+            <h2>Button4</h2>
+            <p><label>
+                <span>Sig type :</span>
+                <select class="selecttype" onchange="changeType(1)">
+                  <option value="Note">Note</option>
+                  <option value="CC">CC</option>
+                </select>
+              </label></p>
+            <p><label>
+                <span class="sigtype">Note :</span>
+                <input type="text" class="no" size="5px" value="111" />
+              </label></p>
+            <p><label>
+                <span>Velocity :</span>
+                <input type="number" class="velocity" min="0" max="127" size="5px" value="127" />
+              </label></p>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <button id="save">Save</button>
+  <div id="result"></div>
+  <script src="main.js"></script>
+  <script src="auto.js"></script>
+</body>
+
+</html>
