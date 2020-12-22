@@ -1,44 +1,8 @@
-let switchMode = "int switch_mode[] = {",
-    switchNo = "int switch_no[] = {",
-    switchVal = "int switch_val[] ={";
-let switchModeArr =[],
-    switchNoArr = [],
-    switchValArr = [];
-
-//吐き出す.inoの元
-let inoData =
-`#define NOTE_ON 144\n
-#define NOTE_OFF 128\n
-#define CC 176\n
-#define ALL_NOTE_OFF 120\n
-#define BUTTON_MAX 12\n
-int pin_no[] = {2,3,4,5,6,7,8,9,10,11,12,13};\n
-int sw_state[] = {0,0,0,0,0,0,0,0,0,0,0,0};" +\n
-${switchMode}\n
-${switchNo}\n
-${switchVal}\n
-void setup() {
-for(int i = 0; i < BUTTON_MAX; i++){
-pinMode(pin_no[i], INPUT);
-}
-Serial.begin(31250);
-sendMidi(CC, 120, 0); //all sound off
-}
-void loop() {
-for(int i = 0; i < BUTTON_MAX; i++){
-int state_new = digitalRead(pin_no[i]);
-if(sw_state[i] != state_new){
-sw_state[i] = state_new;
-sendMidi(NOTE_ON, note_no_1[i], sw_state[i] * 127);
-}
-}
-}
-void sendMidi(int cmd, int pitch, int velocity) {
-Serial.write(cmd);
-Serial.write(pitch);
-Serial.write(velocity);
-}
-`;
+let switchMode, switchNo, switchVal;
+let switchModeArr = [],
+  switchNoArr = [],
+  switchValArr = [];
+let inoData;
 //let soundName = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 //音名をMIDIノートに変換用の連想配列
 let nameToNo = {
@@ -172,19 +136,54 @@ let nameToNo = {
   "G9": 127
 };
 
+function assignValues() {
+  //吐き出す.inoの元
+  inoData = `
+#define NOTE_ON 144
+#define NOTE_OFF 128
+#define ALL_NOTE_OFF 120
+#define BUTTON_MAX 12
+int pin_no[] = {2,3,4,5,6,7,8,9,10,11,12,13};
+int sw_state[] = {0,0,0,0,0,0,0,0,0,0,0,0};
+${switchMode}
+${switchNo}
+${switchVal}
+void setup() {
+  for(int i = 0; i < BUTTON_MAX; i++){
+    pinMode(pin_no[i], INPUT);
+  }
+  Serial.begin(31250);
+  sendMidi(CC, 120, 0); //all sound off
+}
+void loop() {
+  for(int i = 0; i < BUTTON_MAX; i++){
+    int state_new = digitalRead(pin_no[i]);
+    if(sw_state[i] != state_new){
+      sw_state[i] = state_new;
+      sendMidi(NOTE_ON, note_no[i], sw_state[i] * 127);
+    }
+  }
+}
+void sendMidi(int cmd, int pitch, int velocity) {
+  Serial.write(cmd);
+  Serial.write(pitch);
+  Serial.write(velocity);
+}`;
+  $("#result").html(inoData.replace(/\r?\n/g, "<br>"));
+}
 //Note, CCの切り替え
 function changeType(btnNo) {
   $(`#btn${btnNo} .sigtype`).text($(`#btn${btnNo} option:selected`).val() + " :");
 }
 
-function convertValues(){
+function convertValues() {
   for (let i = 0; i < 4; i++) {
     //Note or CC
     //noteon:144, CC : 176
     let modeVal = $(`#btn${i+1} option:selected`).val();
-    if(modeVal == "Note"){
+    if (modeVal == "Note") {
       switchModeArr[i] = 144;
-    }else if(modeVal == "CC"){
+    } else if (modeVal == "CC") {
       switchModeArr[i] = 176;
     }
     //convert name to no
@@ -195,37 +194,30 @@ function convertValues(){
       /*
       今度書く
       */
-    }else{
+    } else {
       switchNoArr[i] = Number(noVal);
     }
     //getvelocityval
-    let velocityVal = Number($(`#btn${i+1} .velocity`).val());
-    switchValArr[i] = velocityVal;
+    switchValArr[i] = Number($(`#btn${i+1} .velocity`).val());
   }
-
-  switchMode = switchMode + switchModeArr.join() + "}";
-  switchNo = switchNo + switchNoArr.join() + "}";
-  switchVal = switchVal + switchValArr.join() + "}";
-  $("#result").html(`
-    switchMode : ${switchMode}<br>
-    switchNo : ${switchNo}<br>
-    switchVal : ${switchVal}<br><br><br>
-    ${inoData}
-  `);
-
+  switchMode = `"int switch_mode[] = {${switchModeArr.join()}};`;
+  switchNo = `int switch_no[] = {${switchNoArr.join()}}`;
+  switchVal = `int switch_val[] ={${switchValArr.join()}};`;
 }
 
 //セーブしたときの動作
 $("#save").on("click", function () {
   convertValues();
-
-  // var blob = new Blob([inoData], {
-  //   type: "text/plain;charset=utf-8"
-  // });
-  // saveAs(blob, 'setmidi.ino');
+  assignValues();
+  let blob = new Blob([inoData], {
+    type: "text/plain;charset=utf-8"
+  });
+  saveAs(blob, 'setmidi.ino');
 });
 
-presetArr=[
+
+
+presetArr = [
   ["Note", "111", 127],
   ["Note", "C2", 50],
   ["Note", "D-1", 0],

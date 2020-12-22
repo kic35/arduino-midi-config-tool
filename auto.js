@@ -1,27 +1,35 @@
-// let str;
-// for (let i = 2; i < 13; i++) {
-//     str += `
-//         <th><div id="btn${i}">
-//             <h2>Button1</h2>
-//             <p><label>
-//             <span>Sig type :</span>
-//             <select class="selecttype" onchange="changeType(${i})">
-//                 <option value="Note">Note</option>
-//                 <option value="CC">CC</option>
-//             </select>
-//         </label></p>
-//             <p><label>
-//             <span class="sigtype">Note :</span>
-//             <input type="text" size="5px" value="">
-//         </label></p>
-//             <p><label>
-//             <span>Value :</span>
-//             <input type="number" min="0" max="127" size="5px" value="127">
-//         </label></p>
-//         </div></th>
-// `;
-// }
-// console.log(str);
+let autoStr;
+for (let i = 1; i <= 12; i++) {
+    if(i%4==1){
+        autoStr+=`<tr>
+        `;
+    }
+    autoStr += `<td>
+        <div id="btn${i}">
+        <h2>Button${i}</h2>
+        <p><label>
+        <span>Sig type :</span>
+        <select class="selecttype" onchange="changeType(${i})">
+        <option value="Note">Note</option>
+        <option value="CC">CC</option>
+        </select>
+        </label></p>
+        <p><label>
+        <span class="sigtype">Note :</span>
+        <input type="text" class="no" size="5px" value="111" />
+        </label></p>
+        <p><label>
+        <span>Velocity :</span>
+        <input type="number" class="velocity" min="0" max="127" size="5px" value="127" />
+        </label></p>
+        </div>
+        </td>`;
+    if(i%4==0){
+        autoStr+=`</tr>
+        `;
+    }
+}
+console.log(autoStr);
 
 // let str = "";
 // let soundName = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
