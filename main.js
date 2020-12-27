@@ -143,7 +143,7 @@ function assignValues() {
 #define NOTE_OFF 128
 #define ALL_NOTE_OFF 120
 #define BUTTON_MAX 12
-int pin_no[] = {2,3,4,5,6,7,8,9,10,11,12,13};
+int pin_no[] = {2,6,10,3,7,11,4,8,12,5,9,13};
 int sw_state[] = {0,0,0,0,0,0,0,0,0,0,0,0};
 ${switchMode}
 ${switchNo}
