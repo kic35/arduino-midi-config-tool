@@ -1,0 +1,14 @@
+h2{
+    margin :0;
+    padding: 0;
+    margin-top: 5px;
+}
+
+/* #board{
+    margin: 0;
+} */
+#board img{
+    width:80%;
+    height:auto;
+
+}
